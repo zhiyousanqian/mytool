@@ -1,0 +1,23 @@
+
+if(project.file("src/main/resources/logback.xml").exists()
+|| project.file("src/test/resources/logback.xml").exists()){
+
+    configurations {
+        [compile,runtime]*.exclude module: 'log4j'
+        all*.exclude module: 'commons-logging'
+        all*.exclude module: 'slf4j-log4j12'
+//    all*.exclude group: 'org.gradle.test.excludes', module: 'reports'
+//    all*.exclude group: 'org.gradle.test.excludes', module: 'reports'
+    }
+
+    dependencies {
+        compile 'org.slf4j:slf4j-api:1.7.7'
+        compile 'org.slf4j:jcl-over-slf4j:1.7.7'
+
+//        providedCompile 'commons-logging:commons-logging:99.0-does-not-exist'
+
+        runtime  'ch.qos.logback:logback-classic:1.1.2'
+//        runtime  'org.logback-extensions:logback-ext-spring:0.1.1'
+    }
+    println ":${project.name}: [ slf4j ] detect."
+}

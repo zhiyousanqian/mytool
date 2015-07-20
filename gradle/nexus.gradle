@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7'
+    }
+}
+
+//apply plugin: 'nexus'
+//https://gist.github.com/wobbals/ad82dcd41df96c7b07c7
+//http://forums.gradle.org/gradle/topics/how_do_i_apply_a_plugin_to_a_project_from_a_shared_applied_gradle_file
+apply plugin: org.gradle.api.plugins.nexus.NexusPlugin.class
+apply plugin: 'maven-publish'
+
+
+modifyPom {
+    project {
+        name project.displayName
+        description project.description
+    }
+}
+
+nexus {
+    attachSources = false
+    attachTests = false
+    attachJavadoc = false
+    sign = false
+    repositoryUrl = 'http://mvn.ttpod.com/nexus/content/repositories/releases/'
+    snapshotRepositoryUrl = 'http://mvn.ttpod.com/nexus/content/repositories/snapshots/'
+}

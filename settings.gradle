@@ -1,0 +1,6 @@
+rootProject.name = 'mytool'
+
+include 'mytest'
+
+include 'dubbo'
+

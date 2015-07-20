@@ -1,0 +1,31 @@
+//buildscript {
+//    repositories {
+////        maven { url 'http://repo.springsource.org/plugins-release' }
+//        maven { url 'http://mvn.ttpod.com/nexus/content/groups/public/'}
+//    }
+//    dependencies {
+//        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.1'
+//    }
+//}
+//
+////apply plugin: 'propdeps'
+////apply plugin: 'propdeps-maven'
+////apply plugin: 'propdeps-idea'
+//
+//apply plugin: org.springframework.build.gradle.propdep.PropDepsPlugin.class
+//apply plugin: org.springframework.build.gradle.propdep.PropDepsMavenPlugin.class
+
+buildscript {
+    repositories {
+        maven { url 'http://mvn.ttpod.com/nexus/content/groups/public/' }
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+    dependencies {
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.6'
+    }
+}
+
+//apply plugin: 'propdeps'
+//apply plugin: 'propdeps-maven'
+apply plugin: org.springframework.build.gradle.propdep.PropDepsPlugin.class
+apply plugin: org.springframework.build.gradle.propdep.PropDepsMavenPlugin.class

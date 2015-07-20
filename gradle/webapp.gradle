@@ -1,0 +1,25 @@
+
+if(project.file("src/main/webapp").exists()){
+
+    apply plugin: 'war'
+    apply plugin: 'jetty'
+
+    dependencies {
+        providedCompile  'javax.servlet:javax.servlet-api:3.1.0'
+    }
+
+    jettyRun {
+        reload ="automatic"
+        scanIntervalSeconds = 1
+    }
+    httpPort = 8080
+    stopPort = 9451
+
+    [jettyRun, jettyRunWar]*.with {
+        contextPath = ''
+//        jettyEnvXml =  file("src/config/jetty-web.xml");
+//        webDefaultXml  =  file("${rootProject.projectDir}/gradle/jetty-webdefault.xml");
+    }
+    println ":${project.name}: [ webapp ] detect."
+
+}

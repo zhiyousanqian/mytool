@@ -1,0 +1,31 @@
+apply plugin:'application'
+
+// BUG TODO http://issues.gradle.org/browse/GRADLE-2333
+
+jar{
+    exclude  '**/*.xml'
+    exclude  '**/*.txt'
+    exclude  '**/*.properties'
+}
+
+startScripts {
+    classpath += files('config')
+    doLast {
+        def windowsScriptFile = file getWindowsScript()
+        def unixScriptFile    = file getUnixScript()
+
+//       replaceFirst('CLASSPATH=\\$APP_HOME/lib/\\S+','CLASSPATH=$APP_HOME/lib/*:$APP_HOME/config')
+//        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\config', '%APP_HOME%\\config')
+//        unixScriptFile.text    = unixScriptFile.text.replace('$APP_HOME/lib/config', '$APP_HOME/config')
+        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\config', '%APP_HOME%\\config')
+        unixScriptFile.text    = unixScriptFile.text.toString().replaceFirst('(CLASSPATH=\\$APP_HOME/lib)/\\S+','$1/*:\\$APP_HOME/config')
+    }
+}
+
+
+//applicationName = "search-songs"
+
+applicationDistribution.from("src/main/resources") {
+//    include "*.*" http://www.gradle.org/docs/current/javadoc/org/gradle/api/file/CopySpec.html
+    into "config"
+}
