@@ -27,9 +27,6 @@ new File("/data/search/keywordData/data/search/keywordData/keywordData_20150715.
             int search = line[1] as int;
             if(search>1) {
             int click = line[2] as int;
-//            if(search>30 && (click/search)<0.4){
-//                println it+","+click/search;
-//            }
             BasicDBObject basicDBObject = new BasicDBObject();
             basicDBObject.put("keyword",line[0]);
             basicDBObject.put("search_count",search);
@@ -38,7 +35,7 @@ new File("/data/search/keywordData/data/search/keywordData/keywordData_20150715.
             basicDBObject.put("date",today);
             list.add(basicDBObject);
             }
-            if(a++ % 5000 == 0)          {
+            if(a++ % 10000 == 0)          {
                 println a;
             }
         }catch(Exception e){
@@ -48,4 +45,8 @@ new File("/data/search/keywordData/data/search/keywordData/keywordData_20150715.
 }
 println "size ="+list.size();
 println "finished="+ noise_coll.insert(list).getN();
+if(list.size()>10000){
+    int yestoday = new Integer(new Date(-1).format("yyyyMMdd"))
+    println "delete "+yestoday+" num="+noise_coll.remove($$(date:['$lt':yestoday])).getN()
+}
 
